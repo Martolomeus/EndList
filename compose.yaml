@@ -30,5 +30,18 @@ services:
     ports:
       - "8080:8080"
 
+  web:
+    build: ./frontend
+    restart: unless-stopped
+    depends_on:
+      app:
+        condition: service_started
+        # nginx looks up the app container's address once at startup, so restart
+        # it whenever the app container is recreated (e.g. after a rebuild)
+        restart: true
+    ports:
+      # Open http://<server>/ in the browser; change the left number if port 80 is taken
+      - "80:80"
+
 volumes:
   db-data:

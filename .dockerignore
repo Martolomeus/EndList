@@ -3,3 +3,5 @@ target/
 .git/
 .env
 HELP.md
+# The frontend has its own image (frontend/Dockerfile), the backend build doesn't need it
+frontend/
