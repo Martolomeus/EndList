@@ -6,9 +6,5 @@ public record TaskRequest(
         @NotBlank(message = "Subject is required")
         String subject,
 
-        String description,
-
-        Boolean completed
-) {
-
-}
+        String description
+) { }

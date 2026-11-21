@@ -40,6 +40,16 @@ public class TaskController {
         return service.create(request);
     }
 
+    @PostMapping("/{id}/complete")
+    public TaskResponse complete(@PathVariable Long id) {
+        return service.complete(id);
+    }
+
+    @PostMapping("/{id}/uncomplete")
+    public TaskResponse uncomplete(@PathVariable Long id) {
+        return service.uncomplete(id);
+    }
+
     @PutMapping("/{id}")
     public TaskResponse update(@PathVariable Long id, @Valid @RequestBody TaskRequest request) {
         return service.update(id, request);

@@ -36,6 +36,18 @@ public class TaskService {
         return TaskResponse.from(repository.save(task));
     }
 
+    public TaskResponse complete(Long id) {
+        Task task = getTask(id);
+        complete(task);
+        return TaskResponse.from(repository.save(task));
+    }
+
+    public TaskResponse uncomplete(Long id) {
+        Task task = getTask(id);
+        uncomplete(task);
+        return TaskResponse.from(repository.save(task));
+    }
+
     public void delete(Long id) {
         repository.delete(getTask(id));
     }
@@ -48,13 +60,15 @@ public class TaskService {
     private void apply(Task task, TaskRequest request) {
         task.setSubject(request.subject());
         task.setDescription(request.description());
+    }
 
-        boolean completed = Boolean.TRUE.equals(request.completed());
-        task.setCompleted(completed);
-        if (completed && task.getCompletedAt() == null) {
-            task.setCompletedAt(Instant.now());
-        } else if (!completed) {
-            task.setCompletedAt(null);
-        }
+    private void complete(Task task) {
+        task.setCompleted(true);
+        task.setCompletedAt(Instant.now());
+    }
+
+    private void uncomplete(Task task) {
+        task.setCompleted(false);
+        task.setCompletedAt(null);
     }
 }
